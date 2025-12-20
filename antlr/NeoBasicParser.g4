@@ -1432,8 +1432,8 @@ metaType : ATOM
          | PROTO
          | TRAIT
          | CLASS
-         | OBJECT
          | PROPERTY
+         | ACTOR
          ;
 
 // Procedural data types
