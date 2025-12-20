@@ -321,7 +321,7 @@ outerDeclareSentence : deflagSentence
                      | protoSentence
                      | traitSentence
                      | classSentence
-                     | objectSentence
+                     | actorSentence
                      ;
 
 // Defined Flag (deflag) declarations
@@ -595,13 +595,13 @@ classFieldSimple : inferredDecoratedIdentifier attributeTag? ( EQUAL expression 
 
 classSuite : logicalInstructionSuite;
 
-// Object declaration
+// Actor declaration
 
-objectSentence : objectClause;
+actorSentence : actorClause;
 
-objectClause : OBJECT declarationIdentifier extendsClause? implementsClause? mixesClause? objectBody;
+actorClause : ACTOR declarationIdentifier extendsClause? implementsClause? mixesClause? actorBody;
 
-objectBody : logicalInstructionSuite;
+actorBody : logicalInstructionSuite;
 
 
 // Inner declarations

@@ -80,7 +80,6 @@ STRUCT : 'struct';
 PROTO : 'proto';
 TRAIT : 'trait';
 CLASS : 'class';
-OBJECT : 'object';
 EXTENDS : 'extends';
 IMPLEMENTS : 'implements';
 MIXES : 'mixes';
@@ -89,6 +88,7 @@ DESTRUCT : 'destruct';
 PROPERTY : 'property';
 GETTER : 'get';
 SETTER : 'set';
+ACTOR : 'actor';
 
 // STATEMENTS AND BLOCKS
 
