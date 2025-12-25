@@ -542,7 +542,7 @@ NECK_RULE : ':-';
 
 FUNCTOR : '->';
 
-IMPLICIT_RETURN : '=>';
+HASH_ROCKET : '=>';
 
 MONAD_BIND : '=>>';
 

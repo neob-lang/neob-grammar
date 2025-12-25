@@ -271,7 +271,6 @@ prefixParameterName : NAMED_ARGUMENTS       // ~~  dict: named macro-options / f
 
 prefixParameterType : ELLIPSIS              // ... tuple: variadic
                     | INTERVAL_INCLUSIVE    // ..  range: values, slice limits
-                    | COLON                 // :   pair: key, value
                     ;
 
 procResultType : type
@@ -279,21 +278,18 @@ procResultType : type
                | LEFT_PARENTHESIS types RIGHT_PARENTHESIS
                ;
 
-procBody : procSemex
-         | procImplicitReturn
+procBody : procSuite
+         | procSemex
          | procPatternGuards
-         | procSuite
          ;
 
 procSuite : logicalInstructionSuite;
 
-procSemex : COLON procSpecifier;
+procSemex : COLON ( procSpecifier | expression );
 
 procSpecifier : DEFAULT
               | DELETE
               ;
-
-procImplicitReturn : IMPLICIT_RETURN expression;
 
 procPatternGuards : guardBranchClause+ guardElseClause?;
 
@@ -448,7 +444,6 @@ castSentence : castClause;
 castClause : CAST declarationIdentifier parenthesizedParameters? procResultType raisesClause? castBody;
 
 castBody : COLON stringLiteral
-         | procImplicitReturn
          | procPatternGuards
          | procSuite
          ;
@@ -622,7 +617,7 @@ classInitializer : LEFT_CURLY classInitializingMembers RIGHT_CURLY;
 
 classInitializingMembers : classInitializingMember ( COMMA classInitializingMember )*;
 
-classInitializingMember : ( qualifiedIdentifier COLON )? expression;
+classInitializingMember : ( qualifiedIdentifier EQUAL )? expression;
 
 // Destructor declaration
 
@@ -663,8 +658,7 @@ statementSuite : EOS INDENT statementBlock DEDENT;
 
 statementBlock : statementSentence ( EOS statementSentence )*;
 
-clauseStatement : IMPLICIT_RETURN expression
-                | DO simpleStatement
+clauseStatement : DO simpleStatement
                 | statementSuite
                 ;
 
@@ -1624,9 +1618,10 @@ compositeLiteral : rangeLiteral
 rangeLiteral : escalarLiteral intervalOperator escalarLiteral
              | escalarLiteral leftIntervalOperator
              | rightIntervalOperator escalarLiteral
+             | rangeLiteral STEP escalarLiteral
              ;
 
-pairLiteral : escalarLiteral COLON expression;
+pairLiteral : escalarLiteral HASH_ROCKET expression;
 
 tupleLiteral : LEFT_PARENTHESIS expressions COMMA? RIGHT_PARENTHESIS;
 
@@ -1719,7 +1714,7 @@ collectionLiteralValue : LEFT_BRACKET RIGHT_BRACKET
 
 elements : element+;
 
-element : ( elementKey COLON )? elementValue;
+element : ( elementKey HASH_ROCKET )? elementValue;
 
 elementKey : expression;
 
@@ -1742,7 +1737,7 @@ objectLiteralValue : LEFT_CURLY RIGHT_CURLY
 
 objectMembers : objectMember ( COMMA objectMember )*;
 
-objectMember : ( memberName COLON )? memberValue
+objectMember : ( memberName EQUAL )? memberValue
              | ELLIPSIS qualifiedIdentifier
              ;
 
@@ -1757,7 +1752,7 @@ lambdaLiteral : lambdaClause
               | arithmeticComprehension
               ;
 
-lambdaClause : LAMBDA procParameters? IMPLICIT_RETURN expressions;
+lambdaClause : LAMBDA procParameters? COLON expressions;
 
 lambdaStatement : LAMBDA_PARENTHESIS statementBlock RIGHT_PARENTHESIS;
 
@@ -1884,20 +1879,13 @@ sos_Expression : LEFT_PARENTHESIS statementSentence RIGHT_PARENTHESIS;
 parenthesizedExpression : LEFT_PARENTHESIS expression RIGHT_PARENTHESIS;
 
 arrayIndexing : expressions
-              | intervalExpression
               | sliceExpression
               ;
 
-intervalExpression : expression intervalOperator expression
-                   | expression leftIntervalOperator
-                   | rightIntervalOperator expression
-                   | intervalExpression INTERVAL_INCLUSIVE expression
-                   ;
-
-sliceExpression : expression COLON expression
-                | COLON expression
-                | expression COLON
-                | sliceExpression COLON expression
+sliceExpression : expression intervalOperator expression
+                | expression leftIntervalOperator
+                | rightIntervalOperator expression
+                | sliceExpression STEP expression
                 ;
 
 formatType : type
@@ -1937,7 +1925,7 @@ expression : primaryExpression
 
 guardsExpression : guardClause+ guardDefault?;
 
-guardClause : PIPE expression IMPLICIT_RETURN expression;
+guardClause : PIPE expression COLON expression;
 
 guardDefault : PIPE expression;
 
