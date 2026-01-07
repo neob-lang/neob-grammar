@@ -279,13 +279,13 @@ procResultType : type
                ;
 
 procBody : procSuite
-         | procSemex
+         | procFunctor
          | procPatternGuards
          ;
 
 procSuite : logicalInstructionSuite;
 
-procSemex : COLON ( procSpecifier | expression );
+procFunctor : FUNCTOR ( procSpecifier | expression );
 
 procSpecifier : DEFAULT
               | DELETE
@@ -1752,7 +1752,7 @@ lambdaLiteral : lambdaClause
               | arithmeticComprehension
               ;
 
-lambdaClause : LAMBDA procParameters? COLON expressions;
+lambdaClause : LAMBDA procParameters? FUNCTOR expressions;
 
 lambdaStatement : LAMBDA_PARENTHESIS statementBlock RIGHT_PARENTHESIS;
 
