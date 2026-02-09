@@ -10,12 +10,12 @@ THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR I
  */
 
 /*
- * Project      : ANTLR4 lexer grammar for NeoBASIC programming language.
- *                https://github.com/neobasic
+ * Project      : ANTLR4 lexer grammar for Neob programming language.
+ *                https://github.com/neob-lang
  * Developed by : Raul Bras, @teknolista.
  */
 
-lexer grammar NeoBasicLexer;
+lexer grammar NeobLexer;
 
 tokens {
     // INDENT, DEDENT,

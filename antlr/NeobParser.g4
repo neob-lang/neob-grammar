@@ -10,15 +10,15 @@ THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR I
  */
 
 /*
- * Project      : ANTLR4 lexer grammar for NeoBASIC programming language.
- *                https://github.com/neobasic
+ * Project      : ANTLR4 lexer grammar for Neob programming language.
+ *                https://github.com/neob-lang
  * Developed by : Raul Bras, @teknolista.
  */
 
-parser grammar NeoBasicParser;
+parser grammar NeobParser;
 
 options {
-    tokenVocab = NeoBasicLexer;
+    tokenVocab = NeobLexer;
 }
 
 
@@ -30,13 +30,13 @@ sourceCodeProgram : logicalInstructions;         // from file or eval()
 
 oneLinerProgram : logicalInstruction;            // from interactive REPL
 
-neoBasic : scriptProgram
-         | sourceCodeProgram
-         | oneLinerProgram
-         ;
+neob : scriptProgram
+     | sourceCodeProgram
+     | oneLinerProgram
+     ;
 
 
-// --- SOURCE CODE ORGANIZATION OF NEOBASIC PROGRAM -----------------
+// --- SOURCE CODE ORGANIZATION OF NEOB PROGRAM -----------------
 
 logicalInstructions : ( logicalInstruction EOS )+;
 
@@ -61,7 +61,7 @@ instructionSentence : SONGBIRD_LOG instructionSentence
                     ;
 
 
-// --- NEOBASIC DIRECTIVES ------------------------------------------
+// --- NEOB DIRECTIVES ------------------------------------------
 
 shebangInterpreter : SHEBANG ABSOLUTE_PATH expression? EOS;
 

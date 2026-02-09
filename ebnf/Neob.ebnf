@@ -10,12 +10,12 @@ THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR I
  *)
 
 (*
- * Project      : ANTLR4 lexer grammar for NeoBASIC programming language.
- *                https://github.com/neobasic
+ * Project      : ANTLR4 lexer grammar for Neob programming language.
+ *                https://github.com/neob-lang
  * Developed by : Raul Bras, @teknolista.
  *)
 
-(* SOURCE CODE ORGANIZATION OF NEOBASIC PROGRAM *)
+(* SOURCE CODE ORGANIZATION OF NEOB PROGRAM *)
 
 NeobProgram = OneLinerProgram | AlgorithmProgram .
 
@@ -958,7 +958,7 @@ CompositeLiteralValue = "{" { FieldValue [ "," ] } EOL TraitBody "}" | "{" "}" |
 FieldValue = Identifier [ FieldType ] ":" Literal . 
 
 
-(* NEOBASIC NATIVE DATA TYPES *)
+(* NEOB NATIVE DATA TYPES *)
 
 NeobNativeType = SymbolType | EscalarType | CompoundType | MetaType | ShellType .
 
@@ -1671,7 +1671,7 @@ ShellLiteral = UnicodeShell "_"                 /* Current directory, workspace 
 	         | UnicodeShell ("0" | "1" | "2")   /* Standard streams (stdin, stdout, stderr) */
 	         | UnicodeShell "%"                 /* All the arguments in an array or string */
 	         | UnicodeShell "%" DecimalInteger  /* Nth argument */
-	         | UnicodeShell UnicodeShell        /* Process ID (PID) of the NeoBASIC program */
+	         | UnicodeShell UnicodeShell        /* Process ID (PID) of the Neob program */
              | FileSystemShell
              | ShellIdentifier
              | ShellString
